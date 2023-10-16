@@ -8,18 +8,27 @@ async function fetchBeers() {
     return fetch(`${BASE_URL}/beers`)
 }
 
-
-
+const beerDetails = document.querySelector('.beer-details')
+const nav = document.querySelector('nav')
+nav.addEventListener('click', (e) => {
+    e.preventDefault()
+    fetch(`${BASE_URL}/beers`)
+        .then(response => response.json())
+        .then(beers => {
+            nav.innerHTML = ''
+            for (let beer of beers) {
+                nav.innerHTML += `<li>${beer.name}</li>`
+            }
+        })
+})
 
 document.addEventListener('DOMContentLoaded', () => {
 
     // beer list selection
     const beerList = document.querySelector('#beer-list')
-    beerList.addEventListener('click', (e) => {
-        e.preventDefault();
-     })
+    
+    
      
-
     fetch(`${BASE_URL}/beers`)
         .then(response => response.json())
         .then(beers => {
