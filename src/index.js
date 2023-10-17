@@ -10,20 +10,27 @@ async function fetchBeers() {
 
 const beerDetails = document.querySelector('.beer-details')
 const nav = document.querySelector('nav')
-nav.addEventListener('click', (e) => {
-    e.preventDefault()
-    fetch(`${BASE_URL}/beers`)
+nav.addEventListener('click', nextBeer)
+function nextBeer(beerDetails) {
+    fetch(`${BASE_URL}/beers/${beerDetails.id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(beerDetails)
+    })
         .then(response => response.json())
-        .then(beers => {
-            nav.innerHTML = ''
-            for (let beer of beers) {
-                nav.innerHTML += `<li>${beer.name}</li>`
-            }
+        .then(beer => {
+            console.log(beer)
         })
-})
+        
+  
+
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    
+    
     // beer list selection
     const beerList = document.querySelector('#beer-list')
     
@@ -76,9 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
             Map.reviews = Object.keys(beerReviews)
 
         })
-   
 
-    })
+})
 
   
 
