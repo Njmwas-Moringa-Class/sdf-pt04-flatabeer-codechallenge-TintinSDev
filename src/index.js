@@ -8,32 +8,70 @@ async function fetchBeers() {
     return fetch(`${BASE_URL}/beers`)
 }
 
-const beerDetails = document.querySelector('.beer-details')
-const nav = document.querySelector('nav')
-nav.addEventListener('click', nextBeer)
-function nextBeer(beerDetails) {
-    fetch(`${BASE_URL}/beers/${beerDetails.id}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(beerDetails)
-    })
-        .then(response => response.json())
-        .then(beer => {
-            console.log(beer)
-        })
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // document.getElementsByClassName("beer-details")
+    // document.addEventListener('submit', (event) => {
+    //     event.preventDefault()
+    //     console.log(event)
+    //     const formData = new FormData(event.target)
+    //     const description = formData.get('description')
+    //     fetch(`${BASE_URL}/beers`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ description })
+    //     })
+    //         .then(response => response.json())
+    //         .then(beer => {
+    //             console.log(beer)
+    //         })
+    // })
+    
+  
+    
+
+})
+
+// const beerDetails = document.querySelector('.beer-details')
+
+// beerDetails.addEventListener('click', beerListClickHandler)
+// function beerListClickHandler(beerList) {
+//     fetch(`${BASE_URL}/beers/${beerList.target.id}`, {
+//         method: 'PATCH',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(beerList)
+//     })
+//         .then(response => response.json())
+//         .then(beer => {
+//             console.log(beer)
+//         })
         
   
 
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    
-    
-    // beer list selection
-    const beerList = document.querySelector('#beer-list')
-    
+// }
+const beerList = document.querySelector('#beer-list')
+    beerList.addEventListener('click', (e) => {
+        e.preventDefault()
+        console.log(e)
+        const formData = new FormData(e.target)
+        const description = formData.get('description')
+        fetch(`${BASE_URL}/beers`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ description })
+        })
+            .then(response => response.json())
+            .then(beer => {
+                console.log(beer)
+            })
+    })
     
      
     fetch(`${BASE_URL}/beers`)
@@ -84,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         })
 
-})
+
 
   
 
