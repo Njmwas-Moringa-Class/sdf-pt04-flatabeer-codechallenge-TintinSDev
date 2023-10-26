@@ -57,7 +57,7 @@ const description = document.querySelector('#description-form')
             .then(beers => {
                 for (let beer of beers) {
                     if (beer.name === e.target.textContent) {
-                        beerDetails.innerHTML = beer.name
+                        beerName.innerText = beer.name
                         beerImage.src = beer.image_url
                         beerDescription.innerHTML = beer.description
                         beerReviews.innerHTML = beer.reviews
