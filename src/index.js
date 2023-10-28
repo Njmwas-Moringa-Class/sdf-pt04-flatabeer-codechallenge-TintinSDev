@@ -8,17 +8,21 @@ async function fetchBeers() {
     return fetch(`${BASE_URL}/beers`)
    
 }
-    
-
-document.addEventListener('DOMContentLoaded', () => {
     const beerReviews = document.querySelector('#review-list')
     const beerName = document.querySelector('#beer-name')
     const beerImage = document.querySelector('#beer-image')
     const beerDescription = document.querySelector('#beer-description')
     const beerList = document.querySelector('#beer-list')
-    const beerDetails = document.querySelector('.beer-details')
     const description = document.querySelector('#description-form')
+    const review = document.querySelector('#review-form')
 
+// function updatedBeer(beers) {
+//     description = description.replace()
+//  }
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    //Display beer details
     fetch(`${BASE_URL}/beers`)
         .then(response => response.json())
         .then(beers => {
@@ -32,16 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
             beerReviews.innerText = beers[0].reviews
         })
 
-    description.addEventListener('submit', (e) => {
-        e.preventDefault();
-        function updateBeers(beers) {
-            fetch(`${BASE_URL}/beers`,)
-                
-                .then(res => res.json())
-                .then(beer => console.log(beer))
-        
-            updateBeers();
-        }
         //nav bar beers navigation #successfull
         beerList.addEventListener('click', (e) => {
             e.preventDefault();
@@ -59,6 +53,35 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 })
         })
+    
+    //Update Beer descriptions
+    description.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newDescription = document.querySelector('#description').value;
+        fetch(`${BASE_URL}/beers`)
+            .then(response => response.json())
+            .then(beers => {
+                for (let beer of beers) {
+                    if (beer.name === beerName.innerText) {
+                        beerDescription.innerHTML = newDescription
+                    }
+                }
+            })
+    })
+    
+    //Update new reviews
+    review.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newReview = document.querySelector('#review').value;
+        fetch(`${BASE_URL}/beers`)
+            .then(response => response.json())
+            .then(beers => {
+                for (let beer of beers) {
+                    if (beer.name === beerName.innerText) {
+                        beerReviews.innerText = newReview
+                    }
+                }
+            })
     })
 })
        
